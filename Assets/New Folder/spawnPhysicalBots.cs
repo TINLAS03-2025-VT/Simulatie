@@ -16,7 +16,9 @@ public class SpawnPhysicalBots : MonoBehaviour
 
     void Start()
     {
+        // TE: The camera topic is hardcoded here.
         ROSConnection.GetOrCreateInstance().Subscribe<PoseArrayMsg>("/cam/pos", UpdateRobots);
+        // TE: Replace this temporary debug print with a clear log message, or remove it.
         print("yo");
     }
 
@@ -24,6 +26,7 @@ public class SpawnPhysicalBots : MonoBehaviour
     {
         for (int i = 0; i < msg.poses.Length; i++)
         {
+            // TE: This uses the PoseArray index as the robot ID. If message order changes, consider using the encoded robot ID instead.
             if (!_robots.ContainsKey(i))
             {
                 var robot = Instantiate(chariotPrefab, transform);
