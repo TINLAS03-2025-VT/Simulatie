@@ -45,6 +45,8 @@ public class RobotBrain : MonoBehaviour
     public bool testDrive = false;
 
     public Material Material1; // Unused — kept for inspector/editor reference
+
+    // TE: The name "Object" is very generic.
     public GameObject Object;  // Unused — kept for inspector/editor reference
 
     #endregion
@@ -95,6 +97,8 @@ public class RobotBrain : MonoBehaviour
     private Vector3 _currentJitter = Vector3.zero; // Current random force vector, refreshed every JitterInterval
     private float _lastJitterTime = 0f;
 
+
+    // TE: Ready is not used in the current state flow. Removing it would make the state machine clearer.
     private enum GameState { Idle, Start, Pause, Ready }
     private GameState _gameState = GameState.Idle;
 
@@ -369,6 +373,8 @@ public class RobotBrain : MonoBehaviour
         }
 
         // 3. Wall repulsion — push back in whenever close to one of the arena's four boundaries
+        
+        // TE: Field bounds are hardcoded here. Make sure they align with the tracker/simulation field setup. Or make them dynamic somehow
         const float FIELD_MIN = 0f, FIELD_MAX = 10f;
 
         float dxMin = pos.x - FIELD_MIN, dxMax = FIELD_MAX - pos.x;
